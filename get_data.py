@@ -1,3 +1,4 @@
+# %%
 import pandas_datareader.data as pdr
 import fix_yahoo_finance as fix
 fix.pdr_override()
@@ -22,5 +23,5 @@ class GetData:
 
 
 if __name__ == "__main__":
-    data = GetData("AAPL", "2000-01-01", "2018-03-20")
+    data = GetData("AAPL", "2000-01-01", "2019-03-21")
     data.get_stock_data()
