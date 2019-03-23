@@ -24,16 +24,20 @@ autoencoder.build_train_model(55, 40, 30, 30, 40)
 # %%
 
 process = DataProcessing(0.8, 0.25)
-process.make_test_data()
+# %%
 process.make_train_data()
+# %%
 process.make_train_y()
+# %%
+process.make_test_data()
+# %%
 process.make_test_y()
-
+# %%
 model = NeuralNetwork(20, True)
 model.make_train_model()
 
 
 
-#dataset, average, std = nnmodel(10, 0.01, 0.01)
+dataset, average, std = nnmodel(10, 0.01, 0.01)
 print(
     f"Price Accuracy Average = {average} \nPrice Accuracy Standard Deviation = {std}")

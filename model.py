@@ -3,6 +3,7 @@ from keras.models import Model
 from keras import regularizers
 import pandas as pd
 import numpy as np
+# np.seterr(divide='ignore', invalid='ignore')
 import matplotlib.pyplot as plt
 from bokeh.plotting import output_file, figure, show
 
