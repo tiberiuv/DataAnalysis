@@ -1,0 +1,28 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+bokeh = "*"
+numpy = "*"
+scipy = "*"
+scikit-learn = "*"
+pandas-datareader = "*"
+fix-yahoo-finance = "*"
+tensorflow = "*"
+matplotlib = "*"
+pandas = "*"
+nltk = "*"
+rpy2 = "*"
+textblob = "*"
+Keras = "*"
+PyWt = "*"
+aylien_news_api = "*"
+vaderSentiment = "*"
+PyWavelets = "*"
+
+[requires]
+python_version = "3.7"

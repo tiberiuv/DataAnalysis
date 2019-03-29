@@ -10,7 +10,7 @@ class AutoEncoder:
     def __init__(self, encoding_dim):
         self.encoding_dim = encoding_dim
 
-    def build_train_model(self, input_shape, encoded1_shape, encoded2_shape, decoded1_shape, decoded2_shape):
+    def build_train_model(self, input_shape, encoded1_shape, encoded2_shape, decoded1_shape, decoded2_shape, epochs=500):
         input_data = Input(shape=(1, input_shape))
 
         encoded1 = Dense(encoded1_shape, activation="relu", activity_regularizer=regularizers.l2(0))(input_data)
@@ -33,7 +33,7 @@ class AutoEncoder:
 
         # print(train_data)
         # autoencoder.summary()
-        autoencoder.fit(train_data, train_data, epochs=1000)
+        autoencoder.fit(train_data, train_data, epochs=epochs)
 
         encoder.save("models/encoder.h5")
 

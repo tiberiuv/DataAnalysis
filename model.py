@@ -20,7 +20,10 @@ class NeuralNetwork:
         perc = kl.Dense(5, activation="sigmoid", activity_regularizer=regularizers.l2(0.005))(lstm)
         lstm2 = kl.LSTM(2, activity_regularizer=regularizers.l2(0.01), recurrent_regularizer=regularizers.l2(0.001),
                         dropout=0.2, recurrent_dropout=0.2)(perc)
-        out = kl.Dense(1, activation="sigmoid", activity_regularizer=regularizers.l2(0.001))(lstm2)
+        perc2 = kl.Dense(2, activation="sigmoid", activity_regularizer=regularizers.l2(0.005))(lstm2)
+        lstm3 = kl.LSTM(2, activity_regularizer=regularizers.l2(0.01), recurrent_regularizer=regularizers.l2(0.001),
+                        dropout=0.2, recurrent_dropout=0.2)(perc2)
+        out = kl.Dense(1, activation="sigmoid", activity_regularizer=regularizers.l2(0.001))(lstm3)
 
         model = Model(input_data, out)
         model.compile(optimizer="adam", loss="mean_squared_error", metrics=["mse"])
@@ -30,10 +33,8 @@ class NeuralNetwork:
         train = np.reshape(np.array(pd.read_csv("features/autoencoded_train_data.csv", index_col=0)),
                            (len(np.array(pd.read_csv("features/autoencoded_train_data.csv"))), 1, self.input_shape))
         train_y = np.array(pd.read_csv("features/autoencoded_train_y.csv", index_col=0))
-        # train_stock = np.array(pd.read_csv("train_stock.csv"))
 
         # train model
-
         model.fit(train, train_y, epochs=2000)
 
         model.save("models/model.h5", overwrite=True, include_optimizer=True)
@@ -41,7 +42,6 @@ class NeuralNetwork:
         test_x = np.reshape(np.array(pd.read_csv("features/autoencoded_test_data.csv", index_col=0)),
                             (len(np.array(pd.read_csv("features/autoencoded_test_data.csv"))), 1, self.input_shape))
         test_y = np.array(pd.read_csv("features/autoencoded_test_y.csv", index_col=0))
-        # test_stock = np.array(pd.read_csv("test_stock.csv"))
 
         stock_data_test = np.array(pd.read_csv("stock_data_test.csv", index_col=0))
 
@@ -55,7 +55,7 @@ class NeuralNetwork:
             stock_price = np.exp(np.reshape(prediction, (1,)))*stock_data_test[i]
             stock_data.append(stock_price[0])
         stock_data[:] = [i - (float(stock_data[0])-float(stock_data_test[0])) for i in stock_data]
-        # stock_data = stock_data - stock_data[0]
+
         if self.stock_or_return:
             plt.plot(stock_data)
             plt.plot(stock_data_test)
@@ -63,12 +63,9 @@ class NeuralNetwork:
             stock.to_csv("sample_predictions/AAPL_predicted_prices.csv")
             stock_test = pd.DataFrame(stock_data_test, index=None)
             stock_test.to_csv("sample_predictions/AAPL_actual_prices.csv")
-            # print(stock_data)
             plt.show()
         else:
-            # plt.plot(prediction_corrected)
             plt.plot(prediction_data)
-            # print(prediction_data)
             plt.plot(test_y)
             plt.show()
 
