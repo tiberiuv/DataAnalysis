@@ -1,18 +1,19 @@
 # %%
 from preprocessing import PreProcessing
-from get_data import GetData
+from data_retriever import DataRetrieverYahoo
 from autoencoder import AutoEncoder
 from data_processing import DataProcessing
 from model import NeuralNetwork
 from model_20_encoded import nnmodel
 
 # %%
-
-data=GetData("AAPL", "2000-01-01", "2019-03-21")
-data.get_stock_data()
 SPLIT = 0.8
 FEATURE_SPLIT = 0.25
 INPUT_DIM = 20
+retriever = DataRetrieverYahoo("AAPL", "2000-01-01", "2019-03-21")
+retriever.get_stock_data()
+retriever.display_data()
+
 # %%
 preprocess = PreProcessing(SPLIT, FEATURE_SPLIT)
 # %%

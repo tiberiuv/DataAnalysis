@@ -5,10 +5,10 @@ import matplotlib.pyplot as plt
 
 
 class PreProcessing:
-    def __init__(self, split, feature_split):
+    def __init__(self, split, feature_split, stock_data=pd.read_csv("stock_data.csv")):
         self.split = split
         self.feature_split = feature_split
-        self.stock_data = pd.read_csv("stock_data.csv")
+        self.stock_data = stock_data
 
     # wavelet transform and create autoencoder data
     def make_wavelet_train(self):

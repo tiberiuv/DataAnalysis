@@ -13,17 +13,17 @@ class NeuralNetwork:
         self.input_shape = input_shape
         self.stock_or_return = stock_or_return
 
-    def make_train_model(self):
+    def make_train_model(self, epochs=1000):
         input_data = kl.Input(shape=(1, self.input_shape))
         lstm = kl.LSTM(5, input_shape=(1, self.input_shape), return_sequences=True, activity_regularizer=regularizers.l2(0.003),
                        recurrent_regularizer=regularizers.l2(0), dropout=0.2, recurrent_dropout=0.2)(input_data)
         perc = kl.Dense(5, activation="sigmoid", activity_regularizer=regularizers.l2(0.005))(lstm)
         lstm2 = kl.LSTM(2, activity_regularizer=regularizers.l2(0.01), recurrent_regularizer=regularizers.l2(0.001),
                         dropout=0.2, recurrent_dropout=0.2)(perc)
-        perc2 = kl.Dense(2, activation="sigmoid", activity_regularizer=regularizers.l2(0.005))(lstm2)
-        lstm3 = kl.LSTM(2, activity_regularizer=regularizers.l2(0.01), recurrent_regularizer=regularizers.l2(0.001),
-                        dropout=0.2, recurrent_dropout=0.2)(perc2)
-        out = kl.Dense(1, activation="sigmoid", activity_regularizer=regularizers.l2(0.001))(lstm3)
+        # perc2 = kl.Dense(2, activation="sigmoid", activity_regularizer=regularizers.l2(0.005))(lstm2)
+        # lstm3 = kl.LSTM(2, activity_regularizer=regularizers.l2(0.01), recurrent_regularizer=regularizers.l2(0.001),
+        #                 dropout=0.2, recurrent_dropout=0.2)(perc2)
+        out = kl.Dense(1, activation="sigmoid", activity_regularizer=regularizers.l2(0.001))(lstm2)
 
         model = Model(input_data, out)
         model.compile(optimizer="adam", loss="mean_squared_error", metrics=["mse"])
@@ -35,7 +35,7 @@ class NeuralNetwork:
         train_y = np.array(pd.read_csv("features/autoencoded_train_y.csv", index_col=0))
 
         # train model
-        model.fit(train, train_y, epochs=2000)
+        model.fit(train, train_y, epochs=epochs)
 
         model.save("models/model.h5", overwrite=True, include_optimizer=True)
 
