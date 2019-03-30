@@ -5,14 +5,31 @@ from autoencoder import AutoEncoder
 from data_processing import DataProcessing
 from model import NeuralNetwork
 from model_20_encoded import nnmodel
+from plot_stock_data import Plot_stock_data
+import matplotlib.pyplot as plt
 
 # %%
 SPLIT = 0.8
 FEATURE_SPLIT = 0.25
 INPUT_DIM = 20
+retriever = DataRetrieverYahoo("MSFT", "2000-01-01", "2019-03-21")
+data = retriever.get_stock_data()
+
+
 retriever = DataRetrieverYahoo("AAPL", "2000-01-01", "2019-03-21")
-retriever.get_stock_data()
-retriever.display_data()
+dataA = retriever.get_stock_data()
+
+retriever = DataRetrieverYahoo("GOOGL", "2000-01-01", "2019-03-21")
+dataG = retriever.get_stock_data()
+
+retriever = DataRetrieverYahoo("FB", "2000-01-01", "2019-03-21")
+dataFb = retriever.get_stock_data()
+
+plotting_data = Plot_stock_data(data, "MSFT")
+# plotting_data.pandas_candlestick_ohlc()
+
+
+plotting_data.comp_stock(data, dataA, dataFb, dataG)
 
 # # %%
 # preprocess = PreProcessing(SPLIT, FEATURE_SPLIT)
