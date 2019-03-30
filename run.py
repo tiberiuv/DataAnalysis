@@ -25,8 +25,8 @@ dataG = retriever.get_stock_data()
 retriever = DataRetrieverYahoo("FB", "2000-01-01", "2019-03-21")
 dataFb = retriever.get_stock_data()
 
-plotting_data = Plot_stock_data(data, "MSFT")
-# plotting_data.pandas_candlestick_ohlc()
+plotting_data = Plot_stock_data(dataFb, "FB")
+plotting_data.pandas_candlestick_ohlc()
 
 
 plotting_data.comp_stock(data, dataA, dataFb, dataG)

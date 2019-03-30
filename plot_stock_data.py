@@ -6,6 +6,7 @@ import datetime
 import matplotlib.dates as mdates
 from matplotlib.dates import date2num
 import matplotlib.pyplot as plt
+from matplotlib.pyplot import figure
 from mpl_finance import candlestick_ohlc
 
 
@@ -110,6 +111,8 @@ class Plot_stock_data:
         plt.xlabel('Date')
         plt.ylabel('Price')
         plt.title(self.title)
+        figure(figsize=(16, 8))
+
         plt.savefig('figures/' + self.title + '.png')
         plt.show()
 
@@ -121,7 +124,8 @@ class Plot_stock_data:
         data4['Adj Close'].plot(label='GOOGLE')
 
         plt.legend()
-        plt.savefig('figures/' + 'MSFT_AAPL_FB_GOOGL' + '.png')
+
+        plt.savefig('figures/' + 'MSFT_AAPL_FB_GOOGLE' + '.png')
         plt.show()
 
 
