@@ -1,11 +1,6 @@
 # %%
 import pandas_datareader.data as pdr
 import fix_yahoo_finance as fix
-
-import plotly.plotly as py
-from plotly.tools import FigureFactory as FF
-from datetime import datetime
-
 fix.pdr_override()
 
 
