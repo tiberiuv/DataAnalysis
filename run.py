@@ -12,24 +12,24 @@ import matplotlib.pyplot as plt
 SPLIT = 0.8
 FEATURE_SPLIT = 0.25
 INPUT_DIM = 20
-retriever = DataRetrieverYahoo("MSFT", "2000-01-01", "2019-03-21")
-data = retriever.get_stock_data()
+# retriever = DataRetrieverYahoo("MSFT", "2000-01-01", "2019-03-21")
+# data = retriever.get_stock_data()
 
 
-retriever = DataRetrieverYahoo("AAPL", "2000-01-01", "2019-03-21")
-dataA = retriever.get_stock_data()
+# retriever = DataRetrieverYahoo("AAPL", "2000-01-01", "2019-03-21")
+# dataA = retriever.get_stock_data()
 
-retriever = DataRetrieverYahoo("GOOGL", "2000-01-01", "2019-03-21")
-dataG = retriever.get_stock_data()
+# retriever = DataRetrieverYahoo("GOOGL", "2000-01-01", "2019-03-21")
+# dataG = retriever.get_stock_data()
 
-retriever = DataRetrieverYahoo("FB", "2000-01-01", "2019-03-21")
-dataFb = retriever.get_stock_data()
+# retriever = DataRetrieverYahoo("FB", "2000-01-01", "2019-03-21")
+# dataFb = retriever.get_stock_data()
 
-plotting_data = Plot_stock_data(dataFb, "FB")
-plotting_data.pandas_candlestick_ohlc()
+# plotting_data = Plot_stock_data(dataFb, "FB")
+# plotting_data.pandas_candlestick_ohlc()
 
 
-plotting_data.comp_stock(data, dataA, dataFb, dataG)
+# plotting_data.comp_stock(data, dataA, dataFb, dataG)
 
 # # %%
 # preprocess = PreProcessing(SPLIT, FEATURE_SPLIT)
@@ -51,9 +51,9 @@ plotting_data.comp_stock(data, dataA, dataFb, dataG)
 # process.make_test_data()
 # # %%
 # process.make_test_y()
-# # %%
-# model = NeuralNetwork(INPUT_DIM, True)
-# model.make_train_model()
+# %%
+model = NeuralNetwork(INPUT_DIM, True)
+model.make_train_model()
 
 
 # dataset, average, std = nnmodel(10, 0.01, 0.01)
