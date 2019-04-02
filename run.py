@@ -10,10 +10,10 @@ import matplotlib.pyplot as plt
 
 # %%
 SPLIT = 0.8
-FEATURE_SPLIT = 1
+FEATURE_SPLIT = 0.25
 INPUT_DIM = 55
-ENCODED_DIM = 35
-retriever = DataRetrieverYahoo("^IXIC", "2000-01-01", "2019-03-21")
+ENCODED_DIM = 20
+retriever = DataRetrieverYahoo("MSFT", "2000-01-01", "2019-03-21")
 data = retriever.get_stock_data()
 
 
@@ -55,8 +55,3 @@ process.make_test_y()
 # %%
 model = NeuralNetwork(ENCODED_DIM, True)
 model.make_train_model()
-
-
-# dataset, average, std = nnmodel(10, 0.01, 0.01)
-# print(
-#     f"Price Accuracy Average = {average} \nPrice Accuracy Standard Deviation = {std}")

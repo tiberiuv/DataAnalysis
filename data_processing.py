@@ -9,8 +9,6 @@ class DataProcessing:
         self.test = pd.read_csv("preprocessing/test_data.csv", index_col=0)
         self.test_stock = pd.read_csv("preprocessing/test_stock.csv", index_col=0)
         self.auto_train = pd.read_csv("features/autoencoded_data.csv", index_col=0)
-        # auto_train.drop([0, 14, 16], axis=1, inplace=True)
-        # auto_train.to_csv("autoencoded_corrected_data.csv", index=None)
 
     def make_train_data(self):
         train_data = np.array(self.auto_train)[int(self.feature_split*len(self.auto_train))+1:
@@ -46,13 +44,3 @@ class DataProcessing:
         test_y = np.array(self.test_stock)[int((1-self.feature_split)*self.split*len(self.auto_train))+1:]
         test_y = pd.DataFrame(test_y, index=None)
         test_y.to_csv("features/nn_stock_test_y.csv")
-
-
-if __name__ == "__main__":
-    process = DataProcessing(0.8, 0.25)
-    process.make_test_data()
-    process.make_train_data()
-    process.make_train_y()
-    process.make_test_y()
-
-
