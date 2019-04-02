@@ -6,12 +6,8 @@ class DataProcessing:
     def __init__(self, split, feature_split):
         self.split = split
         self.feature_split = feature_split
-        # self.train = pd.read_csv("train_data.csv", index_col=0)
-        # print(train.tail())
         self.test = pd.read_csv("preprocessing/test_data.csv", index_col=0)
-        # print(test.tail())
         self.test_stock = pd.read_csv("preprocessing/test_stock.csv", index_col=0)
-        # self.auto_train = pd.read_csv("features/autoencoded_corrected_data.csv", index_col=0)
         self.auto_train = pd.read_csv("features/autoencoded_data.csv", index_col=0)
         # auto_train.drop([0, 14, 16], axis=1, inplace=True)
         # auto_train.to_csv("autoencoded_corrected_data.csv", index=None)

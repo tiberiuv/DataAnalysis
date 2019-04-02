@@ -77,17 +77,17 @@ print(autoencoder.evaluate(test_data, test_data))
 pred = np.reshape(ntest[1], (1, 1, 55))
 print(encoder.predict(pred))
 # %%
- log_train = pd.read_csv("preprocessing/log_train.csv", index_col=0)
-  coded_train = []
-   for i in range(len(log_train)):
-        data = np.array(log_train.iloc[i, :])
-        values = np.reshape(data, (1, 1, 55))
-        coded = encoder.predict(values)
-        shaped = np.reshape(coded, (20,))
-        coded_train.append(shaped)
+log_train = pd.read_csv("preprocessing/log_train.csv", index_col=0)
+coded_train = []
+for i in range(len(log_train)):
+    data = np.array(log_train.iloc[i, :])
+    values = np.reshape(data, (1, 1, 55))
+    coded = encoder.predict(values)
+    shaped = np.reshape(coded, (20,))
+    coded_train.append(shaped)
 
-    train_coded = pd.DataFrame(coded_train)
-    train_coded.to_csv("features/autoencoded_data.csv")
+train_coded = pd.DataFrame(coded_train)
+train_coded.to_csv("features/autoencoded_data.csv")
 
 
 if __name__ == "__main__":
