@@ -13,7 +13,7 @@ class NeuralNetwork:
         self.input_shape = input_shape
         self.stock_or_return = stock_or_return
 
-    def make_train_model(self, epochs=5):
+    def make_train_model(self, epochs=1000):
         input_data = kl.Input(shape=(1, self.input_shape))
         lstm = kl.LSTM(5, input_shape=(1, self.input_shape), return_sequences=True, activity_regularizer=regularizers.l2(0.003),
                        recurrent_regularizer=regularizers.l2(0), dropout=0.2, recurrent_dropout=0.2)(input_data)
@@ -67,12 +67,14 @@ class NeuralNetwork:
             i - (float(stock_data[0]) - float(stock_data_test[0])) for i in stock_data]
 
         if self.stock_or_return:
+            actual_data = pd.DataFrame(stock_data_test)
+            actual_data[0].plot(label='Actual', figsize=(
+                16, 8), title='Prediction vs Actual')
+
             predicted_data = pd.DataFrame(stock_data)
             print(predicted_data[0].head(4))
-            predicted_data[0].plot(label='Predicted Price', figsize=(
-                16, 8), title='Prediction vs Actual')
-            actual_data = pd.DataFrame(stock_data_test)
-            actual_data[0].plot(label='Actual')
+            predicted_data[0].plot(label='Predicted Price')
+
             stock = pd.DataFrame(stock_data, index=None)
             stock.to_csv("sample_predictions/AAPL_predicted_prices.csv")
             stock_test = pd.DataFrame(stock_data_test, index=None)
@@ -80,8 +82,7 @@ class NeuralNetwork:
             plt.legend()
             plt.show()
         else:
-            plt.plot(prediction_data, label='MSFT', figsize=(
-                16, 8), title='Adjusted CLosing')
+            plt.plot(prediction_data)
             plt.plot(test_y)
             plt.show()
 

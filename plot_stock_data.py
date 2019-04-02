@@ -111,7 +111,7 @@ class Plot_stock_data:
         plt.xlabel('Date')
         plt.ylabel('Price')
         plt.title(self.title)
-        figure(figsize=(16, 8))
+        plt.figure(figsize=(16, 8))
 
         plt.savefig('figures/' + self.title + '.png')
         plt.show()

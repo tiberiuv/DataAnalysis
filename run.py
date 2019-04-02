@@ -12,8 +12,8 @@ import matplotlib.pyplot as plt
 SPLIT = 0.8
 FEATURE_SPLIT = 0.25
 INPUT_DIM = 20
-# retriever = DataRetrieverYahoo("MSFT", "2000-01-01", "2019-03-21")
-# data = retriever.get_stock_data()
+retriever = DataRetrieverYahoo("AAPL", "2000-01-01", "2019-03-21")
+data = retriever.get_stock_data()
 
 
 # retriever = DataRetrieverYahoo("AAPL", "2000-01-01", "2019-03-21")
@@ -25,37 +25,38 @@ INPUT_DIM = 20
 # retriever = DataRetrieverYahoo("FB", "2000-01-01", "2019-03-21")
 # dataFb = retriever.get_stock_data()
 
-# plotting_data = Plot_stock_data(dataFb, "FB")
-# plotting_data.pandas_candlestick_ohlc()
+plotting_data = Plot_stock_data(data, "AAPL")
+plotting_data.pandas_candlestick_ohlc()
 
 
 # plotting_data.comp_stock(data, dataA, dataFb, dataG)
 
-# # %%
-# preprocess = PreProcessing(SPLIT, FEATURE_SPLIT)
-# # %%
-# preprocess.make_wavelet_train()
-# preprocess.make_test_data()
-# # %%
-# autoencoder = AutoEncoder(INPUT_DIM)
-# # %%
-# autoencoder.build_train_model(input_shape=55, encoded1_shape=40, encoded2_shape=30, decoded1_shape=30, decoded2_shape=40)
-# # %%
+# %%
+preprocess = PreProcessing(SPLIT, FEATURE_SPLIT)
+# %%
+preprocess.make_wavelet_train()
+preprocess.make_test_data()
+# %%
+autoencoder = AutoEncoder(INPUT_DIM)
+# %%
+autoencoder.build_train_model(input_shape=55, encoded1_shape=40,
+                              encoded2_shape=30, decoded1_shape=30, decoded2_shape=40)
+# %%
 
-# process = DataProcessing(SPLIT, FEATURE_SPLIT)
-# # %%
-# process.make_train_data()
-# # %%
-# process.make_train_y()
-# # %%
-# process.make_test_data()
-# # %%
-# process.make_test_y()
+process = DataProcessing(SPLIT, FEATURE_SPLIT)
+# %%
+process.make_train_data()
+# %%
+process.make_train_y()
+# %%
+process.make_test_data()
+# %%
+process.make_test_y()
 # %%
 model = NeuralNetwork(INPUT_DIM, True)
 model.make_train_model()
 
 
-# dataset, average, std = nnmodel(10, 0.01, 0.01)
-# print(
-#     f"Price Accuracy Average = {average} \nPrice Accuracy Standard Deviation = {std}")
+dataset, average, std = nnmodel(10, 0.01, 0.01)
+print(
+    f"Price Accuracy Average = {average} \nPrice Accuracy Standard Deviation = {std}")

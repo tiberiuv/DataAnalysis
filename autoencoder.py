@@ -10,15 +10,21 @@ class AutoEncoder:
     def __init__(self, encoding_dim):
         self.encoding_dim = encoding_dim
 
-    def build_train_model(self, input_shape, encoded1_shape, encoded2_shape, decoded1_shape, decoded2_shape, epochs=500):
+    def build_train_model(self, input_shape, encoded1_shape, encoded2_shape, decoded1_shape, decoded2_shape, epochs=1500):
         input_data = Input(shape=(1, input_shape))
 
-        encoded1 = Dense(encoded1_shape, activation="relu", activity_regularizer=regularizers.l2(0))(input_data)
-        encoded2 = Dense(encoded2_shape, activation="relu", activity_regularizer=regularizers.l2(0))(encoded1)
-        encoded3 = Dense(self.encoding_dim, activation="relu", activity_regularizer=regularizers.l2(0))(encoded2)
-        decoded1 = Dense(decoded1_shape, activation="relu", activity_regularizer=regularizers.l2(0))(encoded3)
-        decoded2 = Dense(decoded2_shape, activation="relu", activity_regularizer=regularizers.l2(0))(decoded1)
-        decoded = Dense(input_shape, activation="sigmoid", activity_regularizer=regularizers.l2(0))(decoded2)
+        encoded1 = Dense(encoded1_shape, activation="relu",
+                         activity_regularizer=regularizers.l2(0))(input_data)
+        encoded2 = Dense(encoded2_shape, activation="relu",
+                         activity_regularizer=regularizers.l2(0))(encoded1)
+        encoded3 = Dense(self.encoding_dim, activation="relu",
+                         activity_regularizer=regularizers.l2(0))(encoded2)
+        decoded1 = Dense(decoded1_shape, activation="relu",
+                         activity_regularizer=regularizers.l2(0))(encoded3)
+        decoded2 = Dense(decoded2_shape, activation="relu",
+                         activity_regularizer=regularizers.l2(0))(decoded1)
+        decoded = Dense(input_shape, activation="sigmoid",
+                        activity_regularizer=regularizers.l2(0))(decoded2)
 
         autoencoder = Model(inputs=input_data, outputs=decoded)
 

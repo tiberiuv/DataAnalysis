@@ -42,7 +42,8 @@ class PreProcessing:
         # auto_train.to_csv("auto_train.csv")
         # auto_test.to_csv("auto_test.csv")
         rbm_train = pd.DataFrame(log_train_data[0:int(self.split*self.feature_split*len(log_train_data))], index=None)
-        rbm_train.to_csv("preprocessing/rbm_train.csv")
+        
+        rbm_train.to_csv("preprocessing/rbm_train.csv") #2000 - 2008
         rbm_test = pd.DataFrame(log_train_data[int(self.split*self.feature_split*len(log_train_data))+1:
                                                int(self.feature_split*len(log_train_data))])
         rbm_test.to_csv("preprocessing/rbm_test.csv")
