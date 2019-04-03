@@ -3,14 +3,13 @@ from keras.models import Model
 from keras import regularizers
 import pandas as pd
 import numpy as np
-# np.seterr(divide='ignore', invalid='ignore')
 import matplotlib.pyplot as plt
+from sklearn.metrics import r2_score
 
 
 class NeuralNetwork:
-    def __init__(self, input_shape, stock_or_return):
+    def __init__(self, input_shape):
         self.input_shape = input_shape
-        self.stock_or_return = stock_or_return
 
     def make_train_model(self, epochs=1000):
         input_data = kl.Input(shape=(1, self.input_shape))
@@ -61,16 +60,19 @@ class NeuralNetwork:
 
         stock_data[:] = [i - (float(stock_data[0]) - float(stock_data_test[0])) for i in stock_data]
 
-        if self.stock_or_return:
-            predicted_data = pd.DataFrame(stock_data)
-            print(predicted_data[0].head(4))
-            predicted_data[0].plot(label='Predicted Price', figsize=(
-                16, 8), title='Prediction vs Actual')
-            actual_data = pd.DataFrame(stock_data_test)
-            actual_data[0].plot(label='Actual')
-            stock = pd.DataFrame(stock_data, index=None)
-            stock.to_csv("sample_predictions/AAPL_predicted_prices.csv")
-            stock_test = pd.DataFrame(stock_data_test, index=None)
-            stock_test.to_csv("sample_predictions/AAPL_actual_prices.csv")
-            plt.legend()
-            plt.show()
+        predicted_data = pd.DataFrame(stock_data)
+        predicted_data[0].plot(label='Predicted Price', figsize=(
+            16, 8), title='Prediction vs Actual')
+
+        actual_data = pd.DataFrame(stock_data_test)
+        actual_data[0].plot(label='Actual')
+        
+        stock = pd.DataFrame(stock_data, index=None)
+        stock.to_csv("sample_predictions/AAPL_predicted_prices.csv")
+        stock_test = pd.DataFrame(stock_data_test, index=None)
+        stock_test.to_csv("sample_predictions/AAPL_actual_prices.csv")
+        plt.legend()
+        plt.show()
+
+        price_r_score = r2_score(stock_data, stock_data_test[:-1])
+        print('R^2 score {}'.format(price_r_score))

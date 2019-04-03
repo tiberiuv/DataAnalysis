@@ -53,5 +53,5 @@ process.make_test_data()
 # %%
 process.make_test_y()
 # %%
-model = NeuralNetwork(ENCODED_DIM, True)
+model = NeuralNetwork(ENCODED_DIM)
 model.make_train_model()
