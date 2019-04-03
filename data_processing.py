@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 
-
 class DataProcessing:
     def __init__(self, split, feature_split):
         self.split = split

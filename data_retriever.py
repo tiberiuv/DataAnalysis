@@ -1,8 +1,7 @@
-# %%
+# data_retriever.py
 import pandas_datareader.data as pdr
 import fix_yahoo_finance as fix
 fix.pdr_override()
-
 
 class DataRetriever:
     def __init__(self, symbol, start, end):

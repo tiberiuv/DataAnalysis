@@ -1,8 +1,9 @@
+# preprocessing.py
+
 import numpy as np
 import pandas as pd
 import pywt
 import matplotlib.pyplot as plt
-
 
 class PreProcessing:
     def __init__(self, split, feature_split, stock_data=pd.read_csv("stock_data.csv")):
@@ -59,10 +60,3 @@ class PreProcessing:
                                                self.split*(1-self.feature_split)*len(test_stock)):]
         stock = pd.DataFrame(stock_test_data, index=None)
         stock.to_csv("stock_data_test.csv")
-
-
-if __name__ == "__main__":
-    preprocess = PreProcessing(0.8, 0.25)
-    preprocess.make_wavelet_train()
-    preprocess.make_test_data()
-

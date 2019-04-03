@@ -17,13 +17,6 @@ class Plot_stock_data:
         self.title = title
 
     def pandas_candlestick_ohlc(self, stick="day", otherseries=None):
-        """
-        :param dat: pandas DataFrame object with datetime64 index, and float columns "Open", "High", "Low", and "Close", likely created via DataReader from "yahoo"
-        :param stick: A string or number indicating the period of time covered by a single candlestick. Valid string inputs include "day", "week", "month", and "year", ("day" default), and any numeric input indicates the number of trading days included in a period
-        :param otherseries: An iterable that will be coerced into a list, containing the columns of dat that hold other series to be plotted as lines
-
-        This will show a Japanese candlestick plot for stock data stored in dat, also plotting other series if passed.
-        """
         dat = self.data
         mondays = WeekdayLocator(MONDAY)        # major ticks on the mondays
         alldays = DayLocator()              # minor ticks on the days
