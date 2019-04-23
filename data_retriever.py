@@ -23,6 +23,7 @@ class DataRetrieverYahoo(DataRetriever):
         data = pdr.get_data_yahoo(self.symbol, self.start, self.end)
         data.to_csv("stock_data.csv")
         self.data = data
+        # print(data)
         return data
 
 

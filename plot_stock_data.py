@@ -84,7 +84,7 @@ class Plot_stock_data:
         fig, ax = plt.subplots()
         fig.subplots_adjust(bottom=0.2)
         if plotdat.index[-1] - plotdat.index[0] < pd.Timedelta('730 days'):
-            weekFormatter = DateFormatter('%b %d')  # e.g., Jan 12
+            weekFormatter = DateFormatter('%b %d, %Y')  # e.g., Jan 12
             ax.xaxis.set_major_locator(mondays)
             ax.xaxis.set_minor_locator(alldays)
         else:
@@ -96,7 +96,7 @@ class Plot_stock_data:
         # Create the candelstick chart
         candlestick_ohlc(ax, list(zip(list(date2num(plotdat.index.tolist())), plotdat["Open"].tolist(), plotdat["High"].tolist(),
                                       plotdat["Low"].tolist(), plotdat["Close"].tolist())),
-                         colorup="black", colordown="red", width=stick * .5)
+                         colorup="green", colordown="red", width=stick * .5)
 
         # Plot other series (such as moving averages) as lines
         if otherseries != None:
@@ -108,8 +108,8 @@ class Plot_stock_data:
         ax.autoscale_view()
         plt.setp(plt.gca().get_xticklabels(),
                  rotation=45, horizontalalignment='right')
-        plt.xlabel('Date')
-        plt.ylabel('Price')
+        plt.xlabel('DATE')
+        plt.ylabel('PRICE ($)')
         plt.title(self.title)
         plt.figure(figsize=(16, 8))
 

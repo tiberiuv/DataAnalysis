@@ -13,7 +13,7 @@ class NeuralNetwork:
         self.input_shape = input_shape
         self.stock_or_return = stock_or_return
 
-    def make_train_model(self, epochs=1000):
+    def make_train_model(self, epochs=1):
         input_data = kl.Input(shape=(1, self.input_shape))
         lstm = kl.LSTM(5, input_shape=(1, self.input_shape), return_sequences=True, activity_regularizer=regularizers.l2(0.003),
                        recurrent_regularizer=regularizers.l2(0), dropout=0.2, recurrent_dropout=0.2)(input_data)
@@ -68,17 +68,66 @@ class NeuralNetwork:
 
         if self.stock_or_return:
             actual_data = pd.DataFrame(stock_data_test)
-            actual_data[0].plot(label='Actual', figsize=(
-                16, 8), title='Prediction vs Actual')
+            # actual_data[0].plot(label='Actual', figsize=(
+            #     16, 8), title='Prediction vs Actual')
 
             predicted_data = pd.DataFrame(stock_data)
-            print(predicted_data[0].head(4))
-            predicted_data[0].plot(label='Predicted Price')
+            # print(predicted_data[0].head(4))
 
             stock = pd.DataFrame(stock_data, index=None)
             stock.to_csv("sample_predictions/AAPL_predicted_prices.csv")
             stock_test = pd.DataFrame(stock_data_test, index=None)
             stock_test.to_csv("sample_predictions/AAPL_actual_prices.csv")
+
+            # For gettting date
+            adj_close = actual_data.ix[0, 0]
+            print('adj close value' + str(adj_close))
+
+            df = pd.read_csv("stock_data.csv")
+            row = df.loc[df['Adj Close'] == adj_close]
+            print(row)
+            a = row['Date'].to_string()
+            b = a.split('    ', 1)
+            print(b[1])
+            df_date = df.loc[(df['Date'] >= b[1])]
+            c = df_date['Date']
+            print(c.head(4))
+            d = []
+            for index, row in df_date.iterrows():
+                d.append(row['Date'])
+
+            act_stock = []
+            for index, row in actual_data.iterrows():
+                act_stock.append(row[0])
+
+            my_dict = {'Date': d,
+                       'stock': act_stock}
+
+            actual_data_date = pd.DataFrame(my_dict)
+
+            p_stock = []
+
+            for index, row in predicted_data.iterrows():
+                p_stock.append(row[0])
+            d = d[:-1]
+            my_dict1 = {'Date': d,
+                        'stock': p_stock}
+
+            #actual_data_date = actual_data_date.join(actual_data[0])
+            actual_data_date.to_csv('a.csv', index=False)
+
+            a = (pd.read_csv('a.csv', index_col=False))
+            predicted_data_date = pd.DataFrame(my_dict1)
+
+            # actual_data_date.to_csv("sample_predictions/a.csv")
+            # df = pd.read_csv("sample_predictions/a.csv")
+
+            # print(df)
+            a['stock'].plot(label='Actual', figsize=(
+                16, 8), title='Prediction vs Actual')
+            predicted_data_date['stock'].plot(label='Predicted Price')
+            # print(actual_data_date)
+
             plt.legend()
             plt.show()
         else:
